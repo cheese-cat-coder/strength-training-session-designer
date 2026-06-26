@@ -23,7 +23,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [statusMessage, setStatusMessage] = useState('');
   const [statusType, setStatusType] = useState<StatusType>(null);
-  const [sourceLabel, setSourceLabel] = useState('—');
+  // const [sourceLabel, setSourceLabel] = useState('—');
 
   const ROWS_PER_PAGE = 20;
 
@@ -45,25 +45,25 @@ export default function Home() {
     setStatusType(type);
   }, []);
 
-  const handleFileUpload = useCallback(
-    async (file: File) => {
-      try {
-        const text = await file.text();
-        const data = parseSpreadsheet(text);
-        setHeaders(data.headers);
-        setRows(data.rows);
-        setFilters({});
-        setCurrentPage(0);
-        setWorkout([]);
-        setSourceLabel(file.name);
-        showStatus(`Loaded ${data.rows.length} exercises from ${file.name}.`, 'info');
-      } catch (error) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        showStatus(message, 'error');
-      }
-    },
-    [showStatus]
-  );
+  // const handleFileUpload = useCallback(
+  //   async (file: File) => {
+  //     try {
+  //       const text = await file.text();
+  //       const data = parseSpreadsheet(text);
+  //       setHeaders(data.headers);
+  //       setRows(data.rows);
+  //       setFilters({});
+  //       setCurrentPage(0);
+  //       setWorkout([]);
+  //       setSourceLabel(file.name);
+  //       showStatus(`Loaded ${data.rows.length} exercises from ${file.name}.`, 'info');
+  //     } catch (error) {
+  //       const message = error instanceof Error ? error.message : 'Unknown error';
+  //       showStatus(message, 'error');
+  //     }
+  //   },
+  //   [showStatus]
+  // );
 
   const handleGoogleSheetsUrl = useCallback(
     async (url: string) => {
@@ -88,7 +88,7 @@ export default function Home() {
         setFilters({});
         setCurrentPage(0);
         setWorkout([]);
-        setSourceLabel('Google Sheets');
+        // setSourceLabel('Google Sheets');
         showStatus(`Loaded ${parsed.rows.length} exercises from Google Sheets.`, 'info');
       } catch (error) {
         const message = error instanceof Error ? error.message : 'Unknown error';
@@ -180,10 +180,10 @@ export default function Home() {
       {/* Data Input Card */}
       <div className={styles.card}>
         <h2>Load Exercises</h2>
-        <p>Upload an Excel file or paste a Google Sheets URL to get started.</p>
-
+        <p>Paste a Google Sheets URL to get started.</p>
+      
         <div className={styles.inputSection}>
-          <div className={styles.inputGroup}>
+          {/* <div className={styles.inputGroup}>
             <label htmlFor="fileInput">Upload Excel File (.xlsx, .xls, .csv)</label>
             <button
               className={styles.primaryButton}
@@ -202,10 +202,10 @@ export default function Home() {
                 e.currentTarget.value = '';
               }}
             />
-          </div>
+          </div> */}
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="googleSheetUrl">Or paste Google Sheets URL</label>
+         <div className={styles.inputGroup}>
+            {/* <label htmlFor="googleSheetUrl"> Paste Google Sheets URL</label> */}
             <input
               id="googleSheetUrl"
               type="text"
@@ -226,7 +226,7 @@ export default function Home() {
         <Status message={statusMessage} type={statusType ?? 'info'} />
 
         <div className={styles.statsGrid}>
-          <StatBox label="Source" value={sourceLabel} />
+          {/* <StatBox label="Source" value={sourceLabel} /> */}
           <StatBox label="Exercises" value={rows.length} />
           <StatBox label="Selected" value={workout.length} />
         </div>
