@@ -23,6 +23,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [statusMessage, setStatusMessage] = useState('');
   const [statusType, setStatusType] = useState<StatusType>(null);
+  const [googleSheetUrl, setGoogleSheetUrl] = useState('');
   // const [sourceLabel, setSourceLabel] = useState('—');
 
   const ROWS_PER_PAGE = 20;
@@ -97,6 +98,14 @@ export default function Home() {
     },
     [showStatus]
   );
+
+  const handleImport = useCallback(() => {
+    const url = googleSheetUrl.trim();
+    if (!url) return;
+
+    handleGoogleSheetsUrl(url);
+    setGoogleSheetUrl('');
+  }, [googleSheetUrl, handleGoogleSheetsUrl]);
 
   const handleFilterChange = useCallback(
     (column: string, value: string) => {
@@ -210,17 +219,19 @@ export default function Home() {
               id="googleSheetUrl"
               type="text"
               placeholder="https://docs.google.com/spreadsheets/d/..."
-              onKeyPress={(e) => {
+              value={googleSheetUrl}
+              onChange={(e) => setGoogleSheetUrl(e.target.value)}
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  const url = (e.target as HTMLInputElement).value.trim();
-                  if (url) {
-                    handleGoogleSheetsUrl(url);
-                    (e.target as HTMLInputElement).value = '';
-                  }
+                  handleImport();
                 }
               }}
             />
           </div>
+          <button className={styles.primaryButton} onClick={handleImport}> 
+              Import
+          </button>
+        
         </div>
 
         <Status message={statusMessage} type={statusType ?? 'info'} />
