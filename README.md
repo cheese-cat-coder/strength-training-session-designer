@@ -2,6 +2,8 @@
 
 A modern web application for building strength training workouts by filtering and selecting exercises from spreadsheets.
 
+Website: https://strength-training-session-designer.vercel.app/
+
 ## Features
 
 ✨ **Smart Filtering**: Filters update dynamically based on previous selections—only see relevant options
@@ -158,14 +160,15 @@ The filter system intelligently updates available options:
 - Check that the URL is a valid Google Sheets link
 - Verify your columns match the required names exactly
 
-### Spreadsheet parse error?
-- Ensure the file has at least 2 rows (header + 1 data row)
-- Check all required columns are present and spelled correctly
-- Make sure there are no blank header cells
-
 ### Filters showing unexpected options?
 - This is normal! The filters dynamically update based on your previous selections
 - For example, not all Implements may be available for every Sub Theme
+
+
+
+## Future work
+- the spreadsheet upload was not working as of 06-26-2026 so that feature is removed
+
 
 ## License
 
